@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Odgovori na vprašanja</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f23 100%);
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                color: #fff;
+                position: relative;
+            }
+
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.3)"/></svg>') repeat;
+                opacity: 0.1;
+                animation: starry 50s linear infinite;
+            }
+
+            @keyframes starry {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-100px); }
+            }
+
+            .container {
+                background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+                padding: 30px;
+                border-radius: 20px;
+                box-shadow: 0 0 20px rgba(52, 152, 219, 0.5), 0 0 40px rgba(52, 152, 219, 0.3);
+                max-width: 600px;
+                width: 90%;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                animation: glowPulse 3s ease-in-out infinite;
+            }
+
+            @keyframes glowPulse {
+                0%, 100% { box-shadow: 0 0 20px rgba(52, 152, 219, 0.5), 0 0 40px rgba(52, 152, 219, 0.3); }
+                50% { box-shadow: 0 0 30px rgba(52, 152, 219, 0.8), 0 0 60px rgba(52, 152, 219, 0.5); }
+            }
+
+            h1 {
+                color: #ecf0f1;
+                font-size: 2.5em;
+                margin-bottom: 20px;
+                text-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+                animation: float 2s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            input[type="text"] {
+                padding: 12px;
+                font-size: 1.1em;
+                border: 2px solid #3498db;
+                border-radius: 50px;
+                outline: none;
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+            }
+
+            input[type="text"]::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            input[type="text"]:focus {
+                border-color: #9b59b6;
+                box-shadow: 0 0 15px rgba(155, 89, 182, 0.7);
+                transform: scale(1.02);
+            }
+
+            button {
+                padding: 12px;
+                font-size: 1.2em;
+                background: linear-gradient(45deg, #3498db, #9b59b6);
+                color: white;
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            button::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                transition: 0.5s;
+            }
+
+            button:hover::before {
+                left: 100%;
+            }
+
+            button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 0 20px rgba(155, 89, 182, 0.7);
+            }
+
+            button:active {
+                animation: shake 0.3s ease;
+            }
+
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+
+            h2 {
+                margin-top: 25px;
+                color: #e74c3c;
+                font-size: 1.8em;
+                text-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+                animation: fadeIn 1s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+
+            @media (max-width: 600px) {
+                .container {
+                    margin: 15px;
+                    padding: 20px;
+                }
+                h1 {
+                    font-size: 2em;
+                }
+                input[type="text"], button {
+                    font-size: 1em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Vprašaj me karkoli!</h1>
+            <form method="POST" action="/">
+                <input type="text" name="vprasanja" placeholder="Vnesi vprašanje:">
+                <button type="submit">Potrdi</button>
+            </form>
+
+            {% if odgovor %}
+                <h2>Odgovor: {{ odgovor }}</h2>
+            {% endif %}
+        </div>
+    </body>
+</html>
